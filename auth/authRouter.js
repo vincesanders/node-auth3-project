@@ -13,9 +13,25 @@ router.post('/register', (req, res) => {
         const token = generateToken(addedUser);
         res.status(201).json({ user: addedUser, token });
     }).catch(({ error, message, stack }) => {
-        console.log(`Error: ${error}\nMessage: ${message}\n Stack: ${stack}`)
-        res.status(500).json({ error, message, stack, errorMessage: 'Unable to register user.' })
+        console.log(`Error: ${error}\nMessage: ${message}\n Stack: ${stack}`);
+        res.status(500).json({ error, message, stack, errorMessage: 'Unable to register user.' });
     });
 });
+
+router.post('/login', (req, res) => {
+    let { username, password } = req.body;
+
+    users.getBy({ username }).then(user => {
+        if (user && bcrypt.compareSync(password, user.password)) {
+            const token = generateToken(user);
+            res.status(200).json({ message: `Welcome back, ${username}!`, token});
+        } else {
+            res.status(401).json({ message: 'Invalid Credentials' });
+        }
+    }).catch(({error, message, stack}) => {
+        console.log(`Error: ${error}\nMessage: ${message}\n Stack: ${stack}`);
+        res.status(500).json({ error, message, stack, errorMessage: 'Unable to register user.' });
+    });
+})
 
 module.exports = router;
