@@ -32,6 +32,22 @@ router.post('/login', (req, res) => {
         console.log(`Error: ${error}\nMessage: ${message}\n Stack: ${stack}`);
         res.status(500).json({ error, message, stack, errorMessage: 'Unable to register user.' });
     });
-})
+});
+
+router.delete('/logout', (req, res) => {
+    //clientside will remove the token
+    //we will remove the session cookie
+    if (req.session) {
+        req.session.destroy(err => {
+            if (err) {
+                res.status(500).json({ message: "Unable to logout." });
+            } else {
+                res.status(200).json({ message: 'Logout successful.' });
+            }
+        })
+    } else {
+        res.status(500).json({ message: 'You are already logged out.' });
+    }
+});
 
 module.exports = router;
