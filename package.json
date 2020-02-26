@@ -1,0 +1,24 @@
+{
+  "name": "node-auth3-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/vincesanders/node-auth3-project.git",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js"
+  },
+  "author": "Vincent Sanders <vincesanders@hotmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^4.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^3.21.3",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.20.10",
+    "sqlite3": "^4.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
